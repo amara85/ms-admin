@@ -23,25 +23,22 @@ public class UserController {
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
 
-    // build get user by id REST API
-    // http://localhost:8080/api/users/1
+    // get user by id REST API
     @GetMapping("{id}")
     public ResponseEntity<User> getUserById(@PathVariable("id") Long userId){
         User user = userService.getUserById(userId);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    // Build Get All Users REST API
-    // http://localhost:8080/api/users
+    // Get All Users REST API
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers(){
         List<User> users = userService.getAllUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    // Build Update User REST API
+    //Update User REST API
     @PutMapping("{id}")
-    // http://localhost:8080/api/users/1
     public ResponseEntity<User> updateUser(@PathVariable("id") Long userId,
                                            @RequestBody User user){
         user.setId(userId);
@@ -49,7 +46,7 @@ public class UserController {
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
 
-    // Build Delete User REST API
+    //Delete User REST API
     @DeleteMapping("{id}")
     public ResponseEntity<String> deleteUser(@PathVariable("id") Long userId){
         userService.deleteUser(userId);
