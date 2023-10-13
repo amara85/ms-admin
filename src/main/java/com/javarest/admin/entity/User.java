@@ -1,15 +1,13 @@
-package net.javaguides.springboot.entity;
+package com.javarest.admin.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "users")
 public class User {
@@ -23,4 +21,5 @@ public class User {
     private String lastName;
     @Column(nullable = false, unique = true)
     private String email;
+
 }
