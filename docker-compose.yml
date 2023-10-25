@@ -1,0 +1,23 @@
+version: "3"
+services:
+  server:
+    image: ms-admin:latest
+    ports:
+      - "8080:8080"
+    networks:
+      - springmysql-net
+    depends_on:
+      - mysqldb
+
+  mysqldb:
+    image: mysql:8.0
+    networks:
+      - springmysql-net
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234
+      - MYSQL_DATABASE=admindb
+      - MYSQL_USER=user1
+      - MYSQL_PASSWORD=1234
+
+networks:
+  springmysql-net:
