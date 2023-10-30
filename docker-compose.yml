@@ -1,6 +1,15 @@
 version: "3"
 services:
-  server:
+  my-angular-app:
+    image: my-angular-app:latest
+    ports:
+      - "4200:80"
+    networks:
+      - my-network
+    depends_on:
+      - ms-admin
+
+  ms-admin:
     image: ms-admin:latest
     ports:
       - "8080:8080"
@@ -9,19 +18,24 @@ services:
       - DATASOURCE_USERNAME=user1
       - DATASOURCE_PASSWORD=1234
     networks:
-      - springmysql-net
+      - my-network
     depends_on:
-      - mysqldb
+      mysqldb:
+        condition: service_healthy
 
   mysqldb:
     image: mysql:8.0
     networks:
-      - springmysql-net
+      - my-network
     environment:
       - MYSQL_ROOT_PASSWORD=1234
       - MYSQL_DATABASE=admindb
       - MYSQL_USER=user1
       - MYSQL_PASSWORD=1234
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      timeout: 20s
+      retries: 10
 
 networks:
-  springmysql-net:
+  my-network:
